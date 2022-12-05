@@ -65,27 +65,6 @@ void imprimeFile(Lista *f) {
     }
 }
 
-void search(int element, Lista *l)
-{
-    node *ptr = l->ini;
-    if (ptr != NULL) {
-        while (ptr != NULL) {
-            if(ptr->dado == element)
-            {
-                printf("Numero buscado: %i Numero encontrado: %d Endereço de memoria: %i", element, ptr->dado, &ptr->dado);
-                return;
-            }
-            ptr = ptr->prox;
-
-        }
-
-        printf("Valor não encontrado");
-    } else {
-        printf("Fila Vazia\n");
-        return;
-    }
-}
-
 void concat(Lista *f1, Lista *f2, Lista *dest)
 {
     node *ptrF1 = f1->ini;
@@ -111,27 +90,93 @@ void concat(Lista *f1, Lista *f2, Lista *dest)
     }
 
 }
+void divFila(int itensPorFila, Lista *l1, Lista *l2, Lista *l3 ){
+    node *ptr = l1->ini;
+
+    if (ptr != NULL) {
+
+        for (int j = 0; j < itensPorFila; j++) {
+            enfileira(ptr->dado, l2);
+            ptr = ptr->prox;
+        }
+
+        for (int k = 0; k < itensPorFila; k++) {
+            enfileira(ptr->dado, l3);
+            ptr = ptr->prox;
+        }
+
+
+    } else {
+        printf("Fila Vazia\n");
+        return;
+    }
+
+
+}
+
+
+void copy(Lista *lista1, Lista *dest)
+{
+    node *ptrL1 = lista1->ini;
+
+    if(ptrL1 == NULL){
+        printf("Fila Vazia");
+        return;
+    }
+
+    if (ptrL1 != NULL) {
+        while (ptrL1 != NULL) {
+            enfileira(ptrL1->dado, dest);
+            ptrL1 = ptrL1->prox;
+        }
+    }
+}
+
+void search(int element, Lista *l)
+{
+    node *ptr = l->ini;
+    if (ptr != NULL) {
+        while (ptr != NULL) {
+            if(ptr->dado == element)
+            {
+                printf("Numero buscado: %i Numero encontrado: %d EndereÃ§o de memoria: %i", element, ptr->dado, &ptr->dado);
+                return;
+            }
+            ptr = ptr->prox;
+
+        }
+
+        printf("Valor nÃ£o encontrado");
+    } else {
+        printf("Fila Vazia\n");
+        return;
+    }
+}
 
 int main(void) {
-    int option;
     Lista *fila1 = (Lista *)malloc(sizeof(Lista));
-
+    Lista *fila2 = (Lista *)malloc(sizeof(Lista));
+    Lista *fila3 = (Lista *)malloc(sizeof(Lista));
     if (fila1 == NULL) {
-        printf("Erro de alocação");
+        printf("Erro de alocaÃ§Ã£o");
         exit(-1);
     } else {
         inicializaFila(fila1);
+        inicializaFila(fila2);
+        inicializaFila(fila3);
         enfileira(10, fila1);
         enfileira(20, fila1);
         enfileira(30, fila1);
+        enfileira(40, fila2);
+        enfileira(50, fila2);
+        enfileira(60, fila2);
 
 
-
+        concat(fila1, fila2, fila3);
         imprimeFile(fila1);
-        printf("\nDigite o número que você quer achar: ");
-        scanf("%i", &option);
-        search(option,fila1);
-
-
+        printf("\n");
+        imprimeFile(fila2);
+        printf("\n");
+        imprimeFile(fila3);
     }
 }
