@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-typedef struct No {
+typedef struct node {
     int dado;
-    struct No *prox;
-} node;
+    struct node *prox;
+}node;
 
 typedef struct list {
     node *ini;
@@ -152,6 +152,37 @@ void search(int element, Lista *l)
         return;
     }
 }
+void ordenaEmostra(Lista *f1){
+    node *ptr = f1->ini;
+    node *ptr2 = ptr->prox;
+
+    int aux;
+
+    while(ptr != NULL){
+        imprimeFILA(f1);
+
+        if(ptr->dado > ptr2->dado){
+
+
+            aux = ptr->dado;
+
+            ptr->dado = ptr2->dado;
+            ptr->prox->dado = aux;
+            if(ptr2 != NULL && ptr != NULL){
+                ptr2 = ptr2->prox;
+
+                ptr = ptr->prox;
+
+            }
+
+            }
+        }
+
+
+    }
+
+
+
 
 int main(void) {
     Lista *fila1 = (Lista *)malloc(sizeof(Lista));
@@ -173,10 +204,10 @@ int main(void) {
 
 
         concat(fila1, fila2, fila3);
-        imprimeFile(fila1);
+        imprimeFila(fila1);
         printf("\n");
-        imprimeFile(fila2);
+        imprimeFila(fila2);
         printf("\n");
-        imprimeFile(fila3);
+        imprimeFila(fila3);
     }
 }
